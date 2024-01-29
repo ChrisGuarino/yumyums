@@ -1,0 +1,15 @@
+name: yumyums_env
+channels:
+  - conda-forge
+dependencies:
+  - python=3.9
+  - numpy 
+  - pandas 
+  - scikit-learn
+  - pillow 
+  - datasets
+  - transformers 
+  - pytorch
+  - torchvision 
+  - opencv
+  - ipykernel 
