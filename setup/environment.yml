@@ -1,8 +1,8 @@
-name: yumyums_env
+name: yumyums_env3.12
 channels:
   - conda-forge
 dependencies:
-  - python=3.9
+  - python=3.12
   - numpy 
   - pandas 
   - scikit-learn
