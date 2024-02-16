@@ -38,47 +38,35 @@ def cat_or_not(ret,frame):
     #Confidence Threshold
     confidence_threshold = .8  # Define a threshold 
 
-    while True:
+    if ret:
+        # Preprocess the frame
+        frame_resized = cv2.resize(frame, (400, 400))
+        frame_rgb = cv2.cvtColor(frame_resized, cv2.COLOR_BGR2RGB)
+        inputs = processor(images=frame_rgb, return_tensors="pt")
+
+        # Get predicti?ons
+        with torch.no_grad():
+            predictions = model(**inputs).logits
+
+            # Convert predictions to probabilities and get the highest probability class
+            probabilities = torch.nn.functional.softmax(predictions, dim=-1)
+            confidences, predicted_class_idx = torch.max(probabilities, dim=-1)
+            predicted_class = class_labels[predicted_class_idx]#Something with +1 to shift the labels if we add a No Cat label
         
-        if ret:
-            # Preprocess the frame
-            frame_resized = cv2.resize(frame, (400, 400))
-            frame_rgb = cv2.cvtColor(frame_resized, cv2.COLOR_BGR2RGB)
-            inputs = processor(images=frame_rgb, return_tensors="pt")
-
-            # Get predicti?ons
-            with torch.no_grad():
-                predictions = model(**inputs).logits
-
-                # Convert predictions to probabilities and get the highest probability class
-                probabilities = torch.nn.functional.softmax(predictions, dim=-1)
-                confidences, predicted_class_idx = torch.max(probabilities, dim=-1)
-                predicted_class = class_labels[predicted_class_idx]#Something with +1 to shift the labels if we add a No Cat label
-            print(probabilities)
-
-            # Check if confidence is above the threshold
-            if confidences.item() < confidence_threshold:
-                label = 'No Cat'
-                confidence = 0
-            else:
-                label = class_labels[predicted_class_idx.item()]  # +1 to account for 'No Cat'
-                confidence = confidences.item()
-
-            # Prepare the display text
-            display_text = f'{label} ({confidence:.2f})'
-
-            # Display the prediction on the frame
-            cv2.putText(frame_resized, display_text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-
-            # Display the resulting frame
-            cv2.imshow('Frame', frame_resized)
-
-            # Break the loop with 'q'
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                break
+        # Check if confidence is above the threshold
+        if confidences.item() < confidence_threshold:
+            label = 'No Cat'
+            confidence = 0
         else:
-            break
+            label = class_labels[predicted_class_idx.item()]  # +1 to account for 'No Cat'
+            confidence = confidences.item()
 
-# Release the capture when done
-cap.release()
-cv2.destroyAllWindows()
+        # Prepare the display text
+        display_text = f'{label} ({confidence:.2f})'
+
+        return display_text, label, confidence
+
+        
+        
+
+        
