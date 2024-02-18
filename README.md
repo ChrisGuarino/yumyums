@@ -5,3 +5,5 @@
 ### Dataset: https://huggingface.co/ChrisGuarino/cat_ds - It's very small. But it works for the most part. 
 
 #### Base Model: https://huggingface.co/google/vit-base-patch16-224-in21k
+
+### How to Run (Right Now...): run the main.ipynb cells. 
