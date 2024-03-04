@@ -5,6 +5,8 @@ from transformers import ViTImageProcessor, ViTForImageClassification
 
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
+from langchain_core.output_parsers import StrOutputParser
+
 
 def change_detected(pframe, cframe):
     # Convert frames to grayscale
@@ -72,9 +74,9 @@ def cat_or_not(ret,frame):
 def llm_langchain(img): 
     prompt = ChatPromptTemplate.from_template("Describe what the cat is doing in one word. {image}")
     model = ChatOpenAI()
-    chain = prompt | model 
+    chain = prompt | model | StrOutputParser()
 
-    chain.invoke({"image": f"{img}"})
+    return chain.invoke({"image": f"{img}"})
 
 
         
