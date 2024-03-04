@@ -3,6 +3,9 @@ import numpy as np
 import torch
 from transformers import ViTImageProcessor, ViTForImageClassification
 
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_openai import ChatOpenAI
+
 def change_detected(pframe, cframe):
     # Convert frames to grayscale
     gray_prev = cv2.cvtColor(pframe, cv2.COLOR_BGR2GRAY)
@@ -44,7 +47,7 @@ def cat_or_not(ret,frame):
         frame_rgb = cv2.cvtColor(frame_resized, cv2.COLOR_BGR2RGB)
         inputs = processor(images=frame_rgb, return_tensors="pt")
 
-        # Get predicti?ons
+        # Get predictions
         with torch.no_grad():
             predictions = model(**inputs).logits
 
@@ -66,7 +69,12 @@ def cat_or_not(ret,frame):
 
         return display_text, label, confidence
 
-        
-        
+def llm_langchain(img): 
+    prompt = ChatPromptTemplate.from_template("Describe what the cat is doing in one word. {image}")
+    model = ChatOpenAI()
+    chain = prompt | model 
+
+    chain.invoke({"image": f"{img}"})
+
 
         
