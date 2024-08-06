@@ -13,5 +13,7 @@ I have the program using the laptop camera right now. It uses frame differencing
 #### No idea how to apply this yet.
 
 #### 08/06/24 
-I am thinking of finishing this project.. One thing I want to do is just get the system to categorize what Rupert is doing in the frame. This would be using likely the VILA library to do Edge reasoning on the Raspi.
+I am thinking of finishing this project.. One thing I want to do is just get the system to categorize what Rupert is doing in the frame. This would be using likely the VILA library to do Edge reasoning on the Raspi. 
+
+https://medium.com/@ammani/python-usb-camera-tutorial-for-raspberry-pi-4-3098678a2464
 
