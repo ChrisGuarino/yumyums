@@ -12,3 +12,6 @@
 I have the program using the laptop camera right now. It uses frame differencing to decide first if there is motion detected by the camera. Once motion is triggered the cat classification model is run and make an inference of where there is Prim, Rupe, or no cat in the frame. 
 #### No idea how to apply this yet.
 
+#### 08/06/24 
+I am thinking of finishing this project.. One thing I want to do is just get the system to categorize what Rupert is doing in the frame. This would be using likely the VILA library to do Edge reasoning on the Raspi.
+
