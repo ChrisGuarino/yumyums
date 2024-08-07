@@ -26,7 +26,7 @@ def change_detected(pframe, cframe):
     # Calculate the percentage of change
     change_percentage = np.sum(thresh == 255) / (thresh.shape[0] * thresh.shape[1]) * 100
 
-    if change_percentage >= 2.0: 
+    if change_percentage >= 0.5: 
         return True
     else: 
         return False 
@@ -34,11 +34,11 @@ def change_detected(pframe, cframe):
 def cat_or_not(ret,frame): 
     # Initialize the image processor and model
     processor = ViTImageProcessor.from_pretrained('google/vit-base-patch16-224-in21k')
-    model = ViTForImageClassification.from_pretrained('ChrisGuarino/model')  # Replace with your model
+    model = ViTForImageClassification.from_pretrained('ChrisGuarino/model')  
     model.eval()
     
     # Define your class labels
-    class_labels = ['Prim', 'Rupe', 'No Cat']  # Replace with your actual labels
+    class_labels = ['Prim', 'Rupe', 'No Cat']  
 
     #Confidence Threshold
     confidence_threshold = .8  # Define a threshold 
