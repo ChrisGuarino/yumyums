@@ -29,7 +29,7 @@ def change_detected(pframe, cframe):
 def cat_or_not(ret,frame): 
     # Initialize the image processor and model
     processor = ViTImageProcessor.from_pretrained('google/vit-base-patch16-224-in21k')
-    model = ViTForImageClassification.from_pretrained('ChrisGuarino/model')  # Replace with your model
+    model = ViTForImageClassification.from_pretrained('ChrisGuarino/model')  
     model.eval()
     
     # Define your class labels
